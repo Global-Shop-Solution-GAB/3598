@@ -1,0 +1,269 @@
+Program.Sub.ScreenSU.Start
+gui.F_PPay..create
+gui.F_PPay..caption("Positive Pay")
+gui.F_PPay..size(3390,3075)
+gui.F_PPay..position(0,0)
+gui.F_PPay..event(unload,Unload)
+gui.F_PPay..alwaysontop(False)
+gui.F_PPay..fontname("Arial")
+gui.F_PPay..fontsize(8)
+gui.F_PPay..forecolor(0)
+gui.F_PPay..fontstyle(,,,,)
+gui.F_PPay..BackColor(-2147483633)
+gui.F_PPay..controlbox(True)
+gui.F_PPay..maxbutton(False)
+gui.F_PPay..minbutton(True)
+gui.F_PPay..mousepointer(0)
+gui.F_PPay..moveable(True)
+gui.F_PPay..sizeable(False)
+gui.F_PPay..ShowInTaskBar(True)
+gui.F_PPay..titlebar(True)
+gui.F_PPay.frmDate.create(frame)
+gui.F_PPay.frmDate.caption("Frame")
+gui.F_PPay.frmDate.size(2910,825)
+gui.F_PPay.frmDate.position(200,200)
+gui.F_PPay.frmDate.visible(True)
+gui.F_PPay.frmDate.borderstyle(0)
+gui.F_PPay.frmDate.fontname("Arial")
+gui.F_PPay.frmDate.fontsize(8)
+gui.F_PPay.frmChk.create(frame)
+gui.F_PPay.frmChk.caption("Frame")
+gui.F_PPay.frmChk.size(2895,600)
+gui.F_PPay.frmChk.position(200,1200)
+gui.F_PPay.frmChk.visible(True)
+gui.F_PPay.frmChk.borderstyle(0)
+gui.F_PPay.frmChk.fontname("Arial")
+gui.F_PPay.frmChk.fontsize(8)
+gui.F_PPay.lblDates.create(label,"Select Date Range",True,1395,255,1,0,0,True,0,Arial,8,-2147483633,0)
+gui.F_PPay.lblDates.parent("frmdate")
+gui.F_PPay.lbl2.create(label,"Start Date",True,1395,255,1,0,300,True,0,Arial,8,-2147483633,0)
+gui.F_PPay.lbl2.parent("frmdate")
+gui.F_PPay.dtpStart.create(datepicker)
+gui.F_PPay.dtpStart.visible(True)
+gui.F_PPay.dtpStart.size(1380,285)
+gui.F_PPay.dtpStart.zorder(0)
+gui.F_PPay.dtpStart.position(0,500)
+gui.F_PPay.dtpStart.enabled(True)
+gui.F_PPay.dtpStart.parent("frmdate")
+gui.F_PPay.dtpStart.checkbox(False)
+gui.F_PPay.lblEnd.create(label,"End Date",True,1395,255,1,1500,300,True,0,Arial,8,-2147483633,0)
+gui.F_PPay.lblEnd.parent("frmdate")
+gui.F_PPay.dtpEnd.create(datepicker)
+gui.F_PPay.dtpEnd.visible(True)
+gui.F_PPay.dtpEnd.size(1380,285)
+gui.F_PPay.dtpEnd.zorder(0)
+gui.F_PPay.dtpEnd.position(1500,500)
+gui.F_PPay.dtpEnd.enabled(True)
+gui.F_PPay.dtpEnd.parent("frmdate")
+gui.F_PPay.dtpEnd.checkbox(False)
+gui.F_PPay.chkPayRoll.create(checkbox)
+gui.F_PPay.chkPayRoll.caption("PayRoll")
+gui.F_PPay.chkPayRoll.visible(True)
+gui.F_PPay.chkPayRoll.size(930,255)
+gui.F_PPay.chkPayRoll.zorder(0)
+gui.F_PPay.chkPayRoll.position(0,300)
+gui.F_PPay.chkPayRoll.enabled(True)
+gui.F_PPay.chkPayRoll.alignment(0)
+gui.F_PPay.chkPayRoll.parent("frmchk")
+gui.F_PPay.chkPayRoll.fontname("Arial")
+gui.F_PPay.chkPayRoll.fontsize(8)
+gui.F_PPay.chkAP.create(checkbox)
+gui.F_PPay.chkAP.caption("Accounts Payable")
+gui.F_PPay.chkAP.visible(True)
+gui.F_PPay.chkAP.size(2265,255)
+gui.F_PPay.chkAP.zorder(0)
+gui.F_PPay.chkAP.position(1250,300)
+gui.F_PPay.chkAP.enabled(True)
+gui.F_PPay.chkAP.alignment(0)
+gui.F_PPay.chkAP.parent("frmchk")
+gui.F_PPay.chkAP.fontname("Arial")
+gui.F_PPay.chkAP.fontsize(8)
+gui.F_PPay.lblType.create(label,"Select Pay Type",True,1935,255,1,0,0,True,0,Arial,8,-2147483633,0)
+gui.F_PPay.lblType.parent("frmchk")
+gui.F_PPay.cmdGenerate.create(button)
+gui.F_PPay.cmdGenerate.caption("Generate")
+gui.F_PPay.cmdGenerate.visible(True)
+gui.F_PPay.cmdGenerate.size(1000,375)
+gui.F_PPay.cmdGenerate.zorder(0)
+gui.F_PPay.cmdGenerate.position(200,2000)
+gui.F_PPay.cmdGenerate.enabled(True)
+gui.F_PPay.cmdGenerate.fontname("Arial")
+gui.F_PPay.cmdGenerate.fontsize(8)
+gui.F_PPay.cmdGenerate.event(click,cmdgenerate_click)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.sSql.Declare(String)
+Variable.Global.sFileText.Declare(String)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Quote Number 3795
+'Revision Number 0
+'Customer Name Parameter Generation & Control, Inc.
+'Reference Number PAR120-53120121242-6
+'Title BB&T Bank Positive Pay Export
+
+'Description User will be able to enter a date range and select pay type (Payroll and/or AP). All check information for the pay type(s), within the date range, will be written to a comma delimited file.
+
+'Specification Custom Hook & Menu Item
+
+'Entry screen:
+'Date pickers for Date Range
+'Check Boxes for AP and Payroll Options
+'Save to Global\Files (unless otherwise specified)
+'Payroll data from Payroll_Checks
+'AP data from Checks_Log
+
+'File layout (max field lengths indicacated):
+'Account Number (13)
+'Check Number (10)
+'Amount (10, $$$$$$$$cc)
+'Check Date (6, MMDDYY)
+'Payee Data (40, number or name)
+
+
+'Open Connection
+F.ODBC.Connection!Con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+'Display form
+Gui.F_PPay..Show
+
+Program.Sub.Main.End
+
+program.sub.Unload.start
+
+F.Intrinsic.Control.End
+
+program.sub.Unload.end
+
+program.sub.cmdgenerate_click.start
+V.Local.sError.Declare(String)
+V.Local.bChecked.Declare(Boolean,False)
+V.Local.sEndDate.declare
+V.Local.sMsg.Declare
+V.Local.sPath.Declare
+V.Local.sStartDate.Declare
+
+F.Intrinsic.Control.SetErrorHandler("cmdgenerate_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Global.sFileText.Set("")
+V.Global.sSql.Set("")
+V.Local.sStartDate.Set(V.Screen.F_PPay!dtpStart.Value)
+V.Local.sEndDate.Set(V.Screen.F_PPay!dtpEnd.Value)
+V.Local.sStartDate.Set(V.Local.sStartDate.Formatyyyymmdd)
+V.Local.sEndDate.Set(V.Local.sEndDate.Formatyyyymmdd)
+'Check For the date
+F.Intrinsic.Control.If(V.Local.sStartDate,>,V.Local.sEndDate)
+	F.Intrinsic.String.Concat("Start Date Should not be Later than the End Date.",V.Ambient.NewLine,"Select Valid Date Range.",V.Local.sMsg)
+	F.Intrinsic.UI.Msgbox(V.Local.sMsg,"Positive Pay")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+'If Payroll is checked
+F.Intrinsic.Control.If(V.Screen.F_PPay!chkPayRoll.Value,=,1)
+	V.Local.bChecked.Set(True)
+	F.Intrinsic.String.Concat("select * from PAYROLL_CHECKS where ck_date >= '",V.Local.sStartDate,"' and ck_date <= '",V.Local.sEndDate,"'",V.Global.sSql)
+	F.Intrinsic.Control.CallSub(Generate_ppay_file)
+'If AP is checked
+F.Intrinsic.Control.ElseIf(V.Screen.F_PPay!chkap.Value,=,1)
+	V.Local.bChecked.Set(True)
+	F.Intrinsic.String.Concat("select * from CHECKS_LOG where ck_date >= '",V.Local.sStartDate,"' and ck_date <= '",V.Local.sEndDate,"'",V.Global.sSql)
+	F.Intrinsic.Control.CallSub(Generate_ppay_file)
+F.Intrinsic.Control.EndIf
+
+'No pay type selected
+F.Intrinsic.Control.If(V.Local.bChecked,=,False)
+	F.Intrinsic.UI.Msgbox("Select Pay Type.","Positive Pay")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+'Save the file to Global\Plugins
+F.Intrinsic.String.Concat(V.Caller.FilesDir,"\Positive_Pay",v.Ambient.Now.FormatYYYYMMDDHHNNSS,".txt",V.Local.sPath)
+F.Intrinsic.UI.ShowSaveFileDialog(V.Local.sPath,"txt|*.txt",V.Local.sPath)
+'Save File
+F.Intrinsic.Control.If(V.Local.sPath,<>,"***CANCEL***")
+	F.Intrinsic.File.String2File(V.Local.sPath,V.Global.sFileText)
+F.Intrinsic.Control.EndIf
+
+
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdgenerate_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_BB&T_PositivePay.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdgenerate_click.end
+
+Program.Sub.Generate_PPay_File.Start
+V.Local.sError.Declare(String)
+V.Local.sFiletext.Declare
+V.Local.sLine.Declare
+V.Local.sTemp.Declare
+V.Local.sYear.declare
+
+F.Intrinsic.Control.SetErrorHandler("cmdgenerate_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+
+F.ODBC.Connection!Con.OpenLocalRecordsetRO("rstPay",V.Global.sSql)
+F.Intrinsic.Control.DoUntil(V.ODBC.Con!rstPay.EOF,=,True)
+	'Account Number (13)
+	V.Local.sLine.Set(V.ODBC.Con!rstPay.FieldVal!ACCT_NO)
+	F.Intrinsic.String.Left(V.Local.sLine.Trim,13,V.Local.sLine)
+	'Check Number (10)
+	F.Intrinsic.String.Concat(V.Local.sLine,",",V.ODBC.Con!rstPay.FieldVal!CK_NO,V.Local.sLine)
+	'Amount (10, $$$$$$$$cc)
+	V.Local.sTemp.Set(V.ODBC.Con!rstPay.FieldVal!AMOUNT)
+	F.Intrinsic.String.Left(V.Local.sTemp,10,V.Local.sTemp)
+	F.Intrinsic.String.Concat(V.Local.sLine,",",V.Local.sTemp,V.Local.sLine)
+	'Check Date (6, MMDDYY)
+	V.Local.sTemp.Set(V.ODBC.Con!rstPay.FieldVal!CK_DATE)
+	F.Intrinsic.String.Mid(V.Local.sTemp,3,2,V.Local.sYear)
+	F.Intrinsic.String.Concat(V.Local.sTemp.Right4,V.Local.sYear,V.Local.sTemp)
+	F.Intrinsic.String.Concat(V.Local.sLine,",",V.Local.sTemp,V.Local.sLine)
+	'Payee Data (40, number or name)
+	V.Local.sTemp.Set(V.ODBC.Con!rstPay.FieldVal!PAYEE)
+	F.Intrinsic.String.Left(V.Local.sTemp,6,V.Local.sTemp)
+	F.Intrinsic.String.Concat(V.Local.sLine,",",V.Local.sTemp,V.Local.sLine)
+
+	F.Intrinsic.Control.If(V.Local.sFiletext.Trim,=,"")
+		V.Local.sFiletext.Set(V.Local.sLine)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Concat(V.Local.sFiletext,V.Ambient.NewLine,V.Local.sLine,V.Local.sFiletext)
+	F.Intrinsic.Control.EndIf
+
+	F.ODBC.Con!rstPay.MoveNext
+F.Intrinsic.Control.Loop
+
+F.Intrinsic.Control.If(V.Global.sFileText.Trim,=,"")
+	V.Global.sFileText.Set(V.Local.sFiletext)
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Concat(V.Global.sFileText,V.Ambient.NewLine,V.Local.sFiletext,V.Global.sFileText)
+F.Intrinsic.Control.EndIf
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdgenerate_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_BB&T_PositivePay.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+
+Program.Sub.Generate_PPay_File.End
+
+Program.Sub.Comments.Start
+${$0$}$ATG_BB&T_PositivePay$}$CHANDANA$}$8/15/2012
+Program.Sub.Comments.End
+
